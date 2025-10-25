@@ -1,6 +1,6 @@
 # AI Chat PPT - AI-Powered PowerPoint Generator
 
-An advanced AI-powered chat application that generates and edits professional PowerPoint presentations using Google's Gemini AI model. Built with React frontend and Node.js backend, featuring real-time slide editing, responsive design, and professional presentation templates.
+An advanced AI-powered chat application that generates and edits professional PowerPoint presentations using Google's Gemini AI model. Built with React frontend, featuring real-time slide editing, responsive design, and professional presentation templates.
 
 ## ✨ Features
 
@@ -37,11 +37,7 @@ ai-chat-ppt/
 │   ├── package.json           # Frontend dependencies
 │   ├── tsconfig.json          # TypeScript config
 │   └── .env                   # Environment variables
-├── backend/                   # Node.js Backend API
-│   ├── server.js              # Express server
-│   ├── package.json           # Backend dependencies
-│   └── .env                   # Backend environment
-├── vercel.json                # Root deployment config
+├── vercel.json                # Deployment config
 ├── .gitignore                 # Git ignore rules
 └── README.md                  # Project documentation
 ```
@@ -63,48 +59,30 @@ cd ai-chat-ppt
 
 2. **Install dependencies**
 ```bash
-# Frontend
 cd frontend
-npm install
-
-# Backend
-cd ../backend
 npm install
 ```
 
 3. **Set up environment variables**
 ```bash
-# Frontend .env
-echo "REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here" > frontend/.env
-
-# Backend .env
-echo "NODE_ENV=development" > backend/.env
+# Create .env file in frontend directory
+echo "REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here" > .env
 ```
 
 ### Development
 
-**Option 1: Full Stack Development**
-```bash
-# Terminal 1 - Frontend (runs on http://localhost:3000)
-cd frontend && npm start
-
-# Terminal 2 - Backend (runs on http://localhost:5000)
-cd backend && npm start
-```
-
-**Option 2: Frontend Only (with mock data)**
+**Start the application**
 ```bash
 cd frontend
 npm start
 ```
 
+The application will run on `http://localhost:3000`
+
 ### Production Build
 ```bash
-# Frontend build
-cd frontend && npm run build
-
-# Backend (no build needed)
-cd backend && npm start
+cd frontend
+npm run build
 ```
 
 ## 📦 Dependencies
@@ -116,13 +94,6 @@ cd backend && npm start
 - **React Scripts** for build tools
 - **pptxgenjs** for PowerPoint generation
 - **Responsive CSS** with clamp() functions
-
-### Backend
-- **Express.js** web framework
-- **pptxgenjs** for PowerPoint file generation
-- **Multer** for file upload handling
-- **CORS** for cross-origin requests
-- **Node.js** runtime environment
 
 ## 🎨 Templates
 
@@ -141,7 +112,7 @@ The application includes 9 professional presentation templates:
 ## 🚀 Deployment
 
 ### Vercel Deployment
-This project is configured for Vercel deployment with separate frontend and backend builds.
+This project is configured for Vercel deployment with frontend-only architecture.
 
 1. **Connect to Vercel**
 ```bash
@@ -155,15 +126,11 @@ vercel
 2. **Environment Variables**
 Set the following in Vercel dashboard:
 - `REACT_APP_GEMINI_API_KEY` - Your Gemini API key
-- `NODE_ENV` - Set to "production"
 
 ### Manual Deployment
 ```bash
 # Build frontend
 cd frontend && npm run build
-
-# Deploy backend
-cd backend && npm start
 ```
 
 ## 🔧 Environment Variables
@@ -171,12 +138,6 @@ cd backend && npm start
 ### Frontend (.env)
 ```env
 REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-### Backend (.env)
-```env
-NODE_ENV=production
-PORT=5000
 ```
 
 ## 🛠️ Development Features
@@ -209,7 +170,7 @@ PORT=5000
    - Verify the key is not expired
 
 2. **Build Errors**
-   - Run `npm install` in both frontend and backend directories
+   - Run `npm install` in the frontend directory
    - Clear node_modules and reinstall if needed
    - Check Node.js version (requires 18+)
 

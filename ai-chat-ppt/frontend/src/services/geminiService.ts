@@ -3,32 +3,19 @@ import { Slide } from '../types';
 
 const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyBbDR2S3TiVDnRiO8yRaxAaIFMOEPTYO0c';
 
-console.log('=== API KEY DEBUG INFO ===');
-console.log('Current time:', new Date().toISOString());
+console.log('=== API KEY DEBUG ===');
 console.log('API_KEY loaded:', API_KEY ? 'YES' : 'NO');
 console.log('API_KEY value:', API_KEY);
-console.log('API_KEY length:', API_KEY.length);
-console.log('API_KEY starts with AIza:', API_KEY.startsWith('AIza'));
-console.log('Environment check:', {
-  hasKey: !!API_KEY,
-  keyLength: API_KEY.length,
-  isDefault: API_KEY === 'your_gemini_api_key_here',
-  startsWithAIza: API_KEY.startsWith('AIza')
-});
-console.log('process.env.REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY);
-console.log('All environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
-console.log('Browser environment detected');
-console.log('=== END DEBUG INFO ===');
+console.log('API_KEY length:', API_KEY?.length || 0);
+console.log('Environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
+console.log('=== END DEBUG ===');
 
 if (!API_KEY) {
   console.warn('REACT_APP_GEMINI_API_KEY is not set. Please add your Gemini API key to .env file');
 }
 
-const genAI = new GoogleGenerativeAI(API_KEY);
+const genAI = new GoogleGenerativeAI(API_KEY || '');
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
-
-console.log('GoogleGenerativeAI instance:', genAI);
-console.log('Model instance:', model);
 
 export interface SlideGenerationResponse {
   title: string;
@@ -122,28 +109,9 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
       throw new Error(`CONVERSATION_DETECTED: ${randomResponse}`);
     }
 
-    // Test if API key is working
-    console.log('Testing API key...');
-    console.log('API_KEY being used:', API_KEY);
-    console.log('Model being used:', model);
-    console.log('genAI instance:', genAI);
-    try {
-      console.log('Making test API call...');
-      const testResult = await model.generateContent("Test");
-      console.log('API key is working! Proceeding with real AI...');
-      console.log('Test response:', testResult.response.text());
-    } catch (testError) {
-      console.error('API key test failed:', testError);
-      console.error('Error details:', {
-        message: (testError as any)?.message || 'Unknown error',
-        status: (testError as any)?.status || 'Unknown status',
-        statusText: (testError as any)?.statusText || 'Unknown status text'
-      });
-      console.log('Falling back to mock response due to API error');
-      
-      // Fallback to intelligent mock response when API key is not configured
+    // Check if API key is configured
+    if (false) { // Temporarily disabled to force API usage
       console.log('Using fallback AI simulation (add your Gemini API key for real AI responses)');
-      console.log('API_KEY status:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here', startsWithAIza: API_KEY.startsWith('AIza') });
 
       // Generate a generic presentation based on the user's prompt
       const presentationTitle = prompt.length > 50 ? prompt.substring(0, 50) + "..." : prompt;
@@ -201,8 +169,8 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
         intelligentResponse.slides.push(slides[i]);
 
         // Call progress callback if provided
-        if (onProgress) {
-          onProgress(slides[i], i + 1, slides.length);
+        if (onProgress && typeof onProgress === 'function') {
+          onProgress!(slides[i], i + 1, slides.length);
         }
       }
 
@@ -253,7 +221,6 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
     const response = await result.response;
     const text = response.text();
 
-    console.log('AI Response for generateSlides:', text);
 
     // Try to extract JSON from the response
     const jsonMatch = text.match(/\{[\s\S]*\}/);
@@ -358,10 +325,9 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
       throw new Error(`CONVERSATION_DETECTED: ${randomResponse}`);
     }
 
-    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10 || !API_KEY.startsWith('AIza')) {
+    if (false) { // Temporarily disabled to force API usage
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation for editing (add your Gemini API key for real AI responses)');
-      console.log('API_KEY status for editing:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here', startsWithAIza: API_KEY.startsWith('AIza') });
 
       // Create improved slides based on edit prompt
       const improvedSlides = currentSlides.map((slide, index) => {
@@ -400,8 +366,8 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
         await new Promise(resolve => setTimeout(resolve, 200));
 
         // Call progress callback if provided
-        if (onProgress) {
-          onProgress(improvedSlides[i], i + 1, improvedSlides.length);
+        if (onProgress && typeof onProgress === 'function') {
+          onProgress!(improvedSlides[i], i + 1, improvedSlides.length);
         }
       }
 
@@ -454,7 +420,6 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
     const response = await result.response;
     const text = response.text();
 
-    console.log('AI Response for editSlides:', text);
 
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -465,7 +430,6 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
         // Clean up any markdown formatting in slide content
         if (parsed.slides) {
           parsed.slides.forEach((slide: any, index: number) => {
-            console.log(`Slide ${index + 1}:`, slide.type, slide.title);
             if (slide.content) {
               // Remove markdown formatting like ***, **, *, etc.
               slide.content = slide.content

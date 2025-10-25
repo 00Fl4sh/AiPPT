@@ -7,17 +7,9 @@
       "config": {
         "distDir": "build"
       }
-    },
-    {
-      "src": "backend-clean/server.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend-clean/server.js"
-    },
     {
       "src": "/(.*)",
       "dest": "frontend/build/$1"
