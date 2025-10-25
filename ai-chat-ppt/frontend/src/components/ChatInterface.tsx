@@ -151,53 +151,53 @@ ${slide.content}`;
     });
   };
 
-  const handleSlideEdit = (slideIndex: number, slide: any) => {
-    // Prevent duplicate edit mode activation
-    if (isEditingMode && editingSlide && editingSlide.index === slideIndex) {
-      console.log('Already editing this slide, skipping duplicate call');
-      return;
-    }
+  // const handleSlideEdit = (slideIndex: number, slide: any) => {
+  //   // Prevent duplicate edit mode activation
+  //   if (isEditingMode && editingSlide && editingSlide.index === slideIndex) {
+  //     console.log('Already editing this slide, skipping duplicate call');
+  //     return;
+  //   }
     
-    // Prevent multiple rapid calls
-    if (isProcessingEdit) {
-      console.log('Edit processing in progress, skipping duplicate call');
-      return;
-    }
+  //   // Prevent multiple rapid calls
+  //   if (isProcessingEdit) {
+  //     console.log('Edit processing in progress, skipping duplicate call');
+  //     return;
+  //   }
     
-    setIsProcessingEdit(true);
+  //   setIsProcessingEdit(true);
     
-    // Clear any existing edit state first
-    setIsEditingMode(false);
-    setEditingSlide(null);
-    setEditedSlide(null);
-    setShowEditPreview(false);
+  //   // Clear any existing edit state first
+  //   setIsEditingMode(false);
+  //   setEditingSlide(null);
+  //   setEditedSlide(null);
+  //   setShowEditPreview(false);
     
-    // Small delay to ensure state is cleared
-    setTimeout(() => {
-      setIsEditingMode(true);
-      setEditingSlide({ ...slide, index: slideIndex });
-      setShowEditPreview(false);
+  //   // Small delay to ensure state is cleared
+  //   setTimeout(() => {
+  //     setIsEditingMode(true);
+  //     setEditingSlide({ ...slide, index: slideIndex });
+  //     setShowEditPreview(false);
       
-      // Add a single comprehensive message instead of multiple messages
-      const editMessage = `Editing slide ${slideIndex + 1}: "${slide.title}"
+  //     // Add a single comprehensive message instead of multiple messages
+  //     const editMessage = `Editing slide ${slideIndex + 1}: "${slide.title}"
 
-Here's the current slide content. What changes would you like to make?
+  // Here's the current slide content. What changes would you like to make?
 
-📄 **Slide ${slideIndex + 1}: ${slide.title}**
-📝 **Type:** ${slide.type}
-📋 **Content:**
-${slide.content}`;
+  // 📄 **Slide ${slideIndex + 1}: ${slide.title}**
+  // 📝 **Type:** ${slide.type}
+  // 📋 **Content:**
+  // ${slide.content}`;
       
-      addMessage(editMessage, 'assistant');
+  //     addMessage(editMessage, 'assistant');
       
-      // Call the parent's onSlideEdit function if provided
-      if (onSlideEdit) {
-        onSlideEdit(slideIndex, slide);
-      }
+  //     // Call the parent's onSlideEdit function if provided
+  //     if (onSlideEdit) {
+  //       onSlideEdit(slideIndex, slide);
+  //     }
       
-      setIsProcessingEdit(false);
-    }, 100);
-  };
+  //     setIsProcessingEdit(false);
+  //   }, 100);
+  // };
 
   const handleEditSubmit = async () => {
     if (!editingSlide || !inputValue.trim()) return;
@@ -347,7 +347,7 @@ ${slide.content}`;
   };
 
   const generatePresentationFromPrompt = async (prompt: string) => {
-    const userMessage = prompt;
+    // const userMessage = prompt;
     
     // If this is a new presentation (not editing), clear the current chat
     if (!currentPresentation) {

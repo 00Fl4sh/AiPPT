@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Download, Eye, EyeOff } from 'lucide-react';
 import { Presentation, Slide } from '../types';
-import { PresentationTemplate, PRESENTATION_TEMPLATES } from '../types/templates';
+import { PRESENTATION_TEMPLATES } from '../types/templates';
 import './PowerPointPreview.css';
 
 interface PowerPointPreviewProps {
@@ -35,8 +35,8 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
     }
   };
 
-  const renderSlide = (slide: Slide, index: number) => {
-    return (
+  // const renderSlide = (slide: Slide, index: number) => {
+  //   return (
       <div
         key={slide.id}
         style={{
@@ -435,7 +435,7 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
         </div>
       </div>
     );
-  };
+  // };
 
   return (
     <div className="powerpoint-preview">

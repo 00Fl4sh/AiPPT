@@ -13,7 +13,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<'chat' | 'preview' | 'history'>('chat');
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
   const [preFilledMessage, setPreFilledMessage] = useState<string>('');
-  const [selectedTemplate, setSelectedTemplate] = useState<string>('executive-premium');
+  const [selectedTemplate] = useState<string>('executive-premium');
   const [restoredMessages, setRestoredMessages] = useState<Message[]>([]);
 
   useEffect(() => {
