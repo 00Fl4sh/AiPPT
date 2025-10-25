@@ -1,0 +1,13 @@
+{
+  "name": "ai-chat-ppt-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Chat PPT - Root package for Vercel deployment",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "start": "cd client && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
