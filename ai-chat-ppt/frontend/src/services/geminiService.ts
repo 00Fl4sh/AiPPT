@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Slide } from '../types';
 
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyCI60hTjzqixu0M9M_pij-QH-XbHl3rAEk';
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyBbDR2S3TiVDnRiO8yRaxAaIFMOEPTYO0c';
 
 console.log('=== API KEY DEBUG INFO ===');
 console.log('API_KEY loaded:', API_KEY ? 'YES' : 'NO');
