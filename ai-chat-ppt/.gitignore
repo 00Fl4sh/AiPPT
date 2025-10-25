@@ -28,7 +28,7 @@ yarn-error.log*
 .env.*
 config.json
 api-keys.json
-
+/backend/env.example
 # Generated presentations
 /downloads
 /presentations
