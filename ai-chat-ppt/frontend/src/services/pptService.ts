@@ -10,6 +10,7 @@ export const generatePowerPoint = async (presentation: Presentation): Promise<Bl
             },
             body: JSON.stringify({ presentation })
         });
+        
 
         if (response.ok) {
             const blob = await response.blob();
