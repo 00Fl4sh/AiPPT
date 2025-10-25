@@ -127,9 +127,9 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
     } catch (testError) {
       console.error('API key test failed:', testError);
       console.error('Error details:', {
-        message: testError.message,
-        status: testError.status,
-        statusText: testError.statusText
+        message: (testError as any)?.message || 'Unknown error',
+        status: (testError as any)?.status || 'Unknown status',
+        statusText: (testError as any)?.statusText || 'Unknown status text'
       });
       console.log('Falling back to mock response due to API error');
       
