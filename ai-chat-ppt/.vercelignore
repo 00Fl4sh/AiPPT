@@ -1,5 +1,12 @@
 # Dependencies
 node_modules/
+client/node_modules/
+backend/node_modules/
+
+# Build outputs
+client/build/
+build/
+dist/
 
 # Development files
 .env.local
@@ -41,6 +48,14 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+*.md
 
 # Test files
 **/*.test.js
