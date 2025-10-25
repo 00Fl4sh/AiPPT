@@ -29,16 +29,16 @@ const isPromptUnclear = (prompt: string): boolean => {
     /^.{1,10}$/, // Very short prompts
     /^(ok|yes|no|maybe|sure)$/i
   ];
-  
+
   // Don't treat descriptive prompts as unclear
   const descriptiveWords = ['about', 'culture', 'history', 'business', 'technology', 'science', 'health', 'education', 'travel', 'food', 'art', 'music', 'sports', 'environment', 'politics', 'economy'];
   const hasDescriptiveContent = descriptiveWords.some(word => prompt.toLowerCase().includes(word));
-  
+
   // If it has descriptive content and is longer than 10 characters, it's probably clear
   if (hasDescriptiveContent && prompt.trim().length > 10) {
     return false;
   }
-  
+
   return unclearPatterns.some(pattern => pattern.test(prompt.trim()));
 };
 
@@ -58,7 +58,7 @@ const isConversation = (prompt: string): boolean => {
     /^(yes|no|maybe|sure|ok|okay)$/i,
     /^(please|pls)$/i
   ];
-  
+
   return conversationPatterns.some(pattern => pattern.test(prompt.trim()));
 };
 
@@ -109,7 +109,7 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation (add your Gemini API key for real AI responses)');
       console.log('API_KEY status:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here' });
-      
+
       const slides = [
         {
           id: "slide-1",
@@ -129,42 +129,42 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
           content: "Strengths: Improved diagnostic accuracy, faster drug discovery, enhanced patient outcomes\nWeaknesses: High implementation costs, data privacy concerns, regulatory challenges\nOpportunities: Telemedicine expansion, personalized medicine, preventive care\nThreats: Cybersecurity risks, job displacement concerns, ethical dilemmas",
           type: "swot" as const
         },
-            {
-              id: "slide-4",
-              title: "AI Implementation Timeline",
-              content: "Phase 1: Data Collection and Analysis (Months 1-6)\nPhase 2: AI Model Development and Training (Months 7-12)\nPhase 3: Pilot Testing and Validation (Months 13-18)\nPhase 4: Full Deployment and Integration (Months 19-24)",
-              type: "timeline" as const
-            },
-            {
-              id: "slide-5",
-              title: "AI in Healthcare: Benefits and Challenges",
-              content: "Pros:\n+ Improved diagnostic accuracy (up to 95%)\n+ Reduced medical errors and costs\n+ Faster drug discovery and development\n+ Enhanced patient care and outcomes\n\nCons:\n- High initial implementation costs\n- Data privacy and security concerns\n- Need for extensive staff training\n- Regulatory and compliance challenges",
-              type: "pros-cons" as const
-            },
-            {
-              id: "slide-6",
-              title: "AI Healthcare Impact Metrics",
-              content: "Diagnostic Accuracy: 95% improvement\nCost Reduction: 30% average savings\nPatient Satisfaction: 4.8/5 rating\nROI: 300% within 2 years\nTreatment Time: 40% faster\nError Reduction: 85% fewer mistakes",
-              type: "metrics" as const
-            },
-            {
-              id: "slide-7",
-              title: "AI Technology in Medical Practice",
-              content: "Advanced machine learning algorithms for medical imaging analysis, natural language processing for clinical documentation, and predictive analytics for patient care optimization.",
-              type: "image" as const
-            },
-            {
-              id: "slide-8",
-              title: "AI Healthcare Implementation Framework",
-              content: "Clinical Applications: Diagnostic imaging, treatment planning, drug discovery\nTechnical Requirements: Data infrastructure, AI models, integration systems\nSuccess Factors: Staff training, change management, continuous monitoring",
-              type: "three-column" as const
-            },
-            {
-              id: "slide-9",
-              title: "Conclusion: The Future of AI in Healthcare",
-              content: "AI is transforming healthcare delivery, improving patient outcomes, and revolutionizing medical practice. As medical professionals, embracing AI technology will enhance our ability to provide better, faster, and more personalized care to our patients.\n\nThank you for your attention!",
-              type: "content" as const
-            }
+        {
+          id: "slide-4",
+          title: "AI Implementation Timeline",
+          content: "Phase 1: Data Collection and Analysis (Months 1-6)\nPhase 2: AI Model Development and Training (Months 7-12)\nPhase 3: Pilot Testing and Validation (Months 13-18)\nPhase 4: Full Deployment and Integration (Months 19-24)",
+          type: "timeline" as const
+        },
+        {
+          id: "slide-5",
+          title: "AI in Healthcare: Benefits and Challenges",
+          content: "Pros:\n+ Improved diagnostic accuracy (up to 95%)\n+ Reduced medical errors and costs\n+ Faster drug discovery and development\n+ Enhanced patient care and outcomes\n\nCons:\n- High initial implementation costs\n- Data privacy and security concerns\n- Need for extensive staff training\n- Regulatory and compliance challenges",
+          type: "pros-cons" as const
+        },
+        {
+          id: "slide-6",
+          title: "AI Healthcare Impact Metrics",
+          content: "Diagnostic Accuracy: 95% improvement\nCost Reduction: 30% average savings\nPatient Satisfaction: 4.8/5 rating\nROI: 300% within 2 years\nTreatment Time: 40% faster\nError Reduction: 85% fewer mistakes",
+          type: "metrics" as const
+        },
+        {
+          id: "slide-7",
+          title: "AI Technology in Medical Practice",
+          content: "Advanced machine learning algorithms for medical imaging analysis, natural language processing for clinical documentation, and predictive analytics for patient care optimization.",
+          type: "image" as const
+        },
+        {
+          id: "slide-8",
+          title: "AI Healthcare Implementation Framework",
+          content: "Clinical Applications: Diagnostic imaging, treatment planning, drug discovery\nTechnical Requirements: Data infrastructure, AI models, integration systems\nSuccess Factors: Staff training, change management, continuous monitoring",
+          type: "three-column" as const
+        },
+        {
+          id: "slide-9",
+          title: "Conclusion: The Future of AI in Healthcare",
+          content: "AI is transforming healthcare delivery, improving patient outcomes, and revolutionizing medical practice. As medical professionals, embracing AI technology will enhance our ability to provide better, faster, and more personalized care to our patients.\n\nThank you for your attention!",
+          type: "content" as const
+        }
       ];
 
       // Generate slides one by one with progress updates
@@ -176,16 +176,16 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
       for (let i = 0; i < slides.length; i++) {
         // Simulate individual slide generation
         await new Promise(resolve => setTimeout(resolve, 200));
-        
+
         // Add slide to response
         intelligentResponse.slides.push(slides[i]);
-        
+
         // Call progress callback if provided
         if (onProgress) {
           onProgress(slides[i], i + 1, slides.length);
         }
       }
-      
+
       return intelligentResponse;
     }
 
@@ -232,16 +232,16 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
     const result = await model.generateContent([systemPrompt, prompt]);
     const response = await result.response;
     const text = response.text();
-    
+
     console.log('AI Response for generateSlides:', text);
-    
+
     // Try to extract JSON from the response
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       try {
         const jsonStr = jsonMatch[0];
         const parsed = JSON.parse(jsonStr);
-        
+
         // Clean up any markdown formatting in slide content
         if (parsed.slides) {
           parsed.slides.forEach((slide: any) => {
@@ -260,7 +260,7 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
             }
           });
         }
-        
+
         return parsed;
       } catch (parseError) {
         console.error('JSON Parse Error:', parseError);
@@ -273,7 +273,7 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
     }
   } catch (error) {
     console.error('Error generating slides:', error);
-    
+
     // Handle specific Gemini API errors
     if (error instanceof Error) {
       if (error.message.includes('503') || error.message.includes('overloaded')) {
@@ -286,7 +286,7 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
         throw new Error('GEMINI_NETWORK: Network connection issue. Please check your internet and try again.');
       }
     }
-    
+
     throw new Error('Failed to generate slides. Please try again.');
   }
 };
@@ -297,7 +297,7 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
     if (!editPrompt || editPrompt.trim().length === 0) {
       throw new Error('Please provide a valid edit request');
     }
-    
+
     if (!currentSlides || currentSlides.length === 0) {
       throw new Error('No existing slides to edit');
     }
@@ -342,7 +342,7 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation for editing (add your Gemini API key for real AI responses)');
       console.log('API_KEY status for editing:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here' });
-      
+
       // Create improved slides based on edit prompt
       const improvedSlides = currentSlides.map((slide, index) => {
         // Enhance the first slide with better content
@@ -375,22 +375,22 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
           content: slide.content + `\n\n[Enhanced with: ${editPrompt}]`
         };
       });
-      
+
       // Simulate individual slide generation
       for (let i = 0; i < improvedSlides.length; i++) {
         await new Promise(resolve => setTimeout(resolve, 200));
-        
+
         // Call progress callback if provided
         if (onProgress) {
           onProgress(improvedSlides[i], i + 1, improvedSlides.length);
         }
       }
-      
+
       const intelligentResponse: SlideGenerationResponse = {
         title: `Enhanced AI in Healthcare Presentation (Updated: ${editPrompt})`,
         slides: improvedSlides
       };
-      
+
       return intelligentResponse;
     }
 
@@ -434,15 +434,15 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
     const result = await model.generateContent([systemPrompt, editPrompt]);
     const response = await result.response;
     const text = response.text();
-    
+
     console.log('AI Response for editSlides:', text);
-    
+
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       try {
         const jsonStr = jsonMatch[0];
         const parsed = JSON.parse(jsonStr);
-        
+
         // Clean up any markdown formatting in slide content
         if (parsed.slides) {
           parsed.slides.forEach((slide: any, index: number) => {
@@ -464,7 +464,7 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
             }
           });
         }
-        
+
         return parsed;
       } catch (parseError) {
         console.error('JSON Parse Error:', parseError);

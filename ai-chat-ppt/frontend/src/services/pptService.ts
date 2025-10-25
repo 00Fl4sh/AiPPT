@@ -1,26 +1,26 @@
 import { Presentation } from '../types';
 
 export const generatePowerPoint = async (presentation: Presentation): Promise<Blob> => {
-  try {
-    // Try to use backend server for real PowerPoint generation
-    const response = await fetch('http://localhost:5000/api/generate-pptx', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ presentation })
-    });
-    
-    if (response.ok) {
-      const blob = await response.blob();
-      return blob;
-    } else {
-      throw new Error('Backend server not available');
-    }
-  } catch (error) {
-    console.log('Backend server not available, using HTML fallback');
-    // Fallback to HTML generation if backend is not available
-  const htmlContent = `
+    try {
+        // Try to use backend server for real PowerPoint generation
+        const response = await fetch('http://localhost:5000/api/generate-pptx', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ presentation })
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            return blob;
+        } else {
+            throw new Error('Backend server not available');
+        }
+    } catch (error) {
+        console.log('Backend server not available, using HTML fallback');
+        // Fallback to HTML generation if backend is not available
+        const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -381,20 +381,20 @@ export const generatePowerPoint = async (presentation: Presentation): Promise<Bl
 <body>
     <div class="presentation-container">
         ${presentation.slides.map((slide, index) => {
-          const isTitleSlide = slide.type === 'title';
-          const slideClass = isTitleSlide ? 'slide title-slide' : 'slide';
-          
-          if (isTitleSlide) {
-            return `
+            const isTitleSlide = slide.type === 'title';
+            const slideClass = isTitleSlide ? 'slide title-slide' : 'slide';
+
+            if (isTitleSlide) {
+                return `
               <div class="${slideClass}">
                 <h1>${slide.title}</h1>
                 ${slide.content ? `<p>${slide.content}</p>` : ''}
                 <div class="slide-number">Slide ${index + 1}</div>
               </div>
             `;
-          } else if (slide.type === 'bullet') {
-            const bulletPoints = slide.content.split('\n').filter(point => point.trim());
-            return `
+            } else if (slide.type === 'bullet') {
+                const bulletPoints = slide.content.split('\n').filter(point => point.trim());
+                return `
               <div class="${slideClass}">
                 <div class="slide-title">${slide.title}</div>
                 <div class="slide-content">
@@ -405,33 +405,33 @@ export const generatePowerPoint = async (presentation: Presentation): Promise<Bl
                 <div class="slide-number">Slide ${index + 1}</div>
               </div>
             `;
-          } else {
-            return `
+            } else {
+                return `
               <div class="${slideClass}">
                 <div class="slide-title">${slide.title}</div>
                 <div class="slide-content">${slide.content}</div>
                 <div class="slide-number">Slide ${index + 1}</div>
               </div>
             `;
-          }
+            }
         }).join('')}
     </div>
 </body>
 </html>
   `.trim();
-  
-  const blob = new Blob([htmlContent], { type: 'text/html' });
-  return blob;
-  }
+
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        return blob;
+    }
 };
 
 export const downloadPowerPoint = (blob: Blob, filename: string = 'presentation.html') => {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
 };
