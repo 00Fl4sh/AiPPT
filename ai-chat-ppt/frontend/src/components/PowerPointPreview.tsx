@@ -155,135 +155,46 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
         background: '#f8fafc',
         padding: 'clamp(16px, 4vw, 24px)',
         borderRadius: '0 0 12px 12px',
-        minHeight: 'clamp(400px, 50vh, 600px)',
+        minHeight: 'clamp(300px, 45vh, 500px)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'clamp(16px, 4vw, 24px)'
+        gap: 'clamp(12px, 3vw, 20px)',
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden'
       }}>
-        {/* Slide Navigation */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 'clamp(8px, 2vw, 16px)',
-          flexWrap: 'wrap'
-        }}>
-          <button
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'clamp(4px, 1vw, 6px)',
-              padding: 'clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px)',
-              background: currentSlide === 0 ? '#f3f4f6' : '#1f2937',
-              color: currentSlide === 0 ? '#9ca3af' : '#ffffff',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: 'clamp(12px, 2.5vw, 14px)',
-              fontWeight: '500',
-              cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
-              transition: 'all 0.2s ease',
-              opacity: currentSlide === 0 ? 0.5 : 1
-            }}
-            onMouseEnter={(e) => {
-              if (currentSlide !== 0) {
-                const target = e.target as HTMLButtonElement;
-                target.style.background = '#374151';
-                target.style.transform = 'translateY(-1px)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (currentSlide !== 0) {
-                const target = e.target as HTMLButtonElement;
-                target.style.background = '#1f2937';
-                target.style.transform = 'translateY(0)';
-              }
-            }}
-          >
-            <ChevronLeft size={16} />
-            Previous
-          </button>
-          
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'clamp(4px, 1vw, 8px)',
-            background: '#ffffff',
-            padding: 'clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px)',
-            borderRadius: '20px',
-            border: '1px solid #e5e7eb',
-            fontSize: 'clamp(12px, 2.5vw, 14px)',
-            fontWeight: '500',
-            color: '#374151'
-          }}>
-            <span>{currentSlide + 1}</span>
-            <span style={{ color: '#9ca3af' }}>/</span>
-            <span>{presentation.slides.length}</span>
-          </div>
-          
-          <button
-            onClick={nextSlide}
-            disabled={currentSlide === presentation.slides.length - 1}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'clamp(4px, 1vw, 6px)',
-              padding: 'clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px)',
-              background: currentSlide === presentation.slides.length - 1 ? '#f3f4f6' : '#1f2937',
-              color: currentSlide === presentation.slides.length - 1 ? '#9ca3af' : '#ffffff',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: 'clamp(12px, 2.5vw, 14px)',
-              fontWeight: '500',
-              cursor: currentSlide === presentation.slides.length - 1 ? 'not-allowed' : 'pointer',
-              transition: 'all 0.2s ease',
-              opacity: currentSlide === presentation.slides.length - 1 ? 0.5 : 1
-            }}
-            onMouseEnter={(e) => {
-              if (currentSlide !== presentation.slides.length - 1) {
-                const target = e.target as HTMLButtonElement;
-                target.style.background = '#374151';
-                target.style.transform = 'translateY(-1px)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (currentSlide !== presentation.slides.length - 1) {
-                const target = e.target as HTMLButtonElement;
-                target.style.background = '#1f2937';
-                target.style.transform = 'translateY(0)';
-              }
-            }}
-          >
-            Next
-            <ChevronRight size={16} />
-          </button>
-        </div>
 
         {/* Slide Preview */}
         {isPreviewMode && (
           <div className="slide-container" style={{
-            background: '#ffffff',
+            background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%)',
             borderRadius: '12px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
             overflow: 'hidden',
-            border: '1px solid #e5e7eb',
-            minHeight: 'clamp(300px, 40vh, 500px)',
+            border: '1px solid #333333',
+            width: '100%',
+            maxWidth: 'clamp(320px, 90vw, 900px)',
+            aspectRatio: '16/9',
+            margin: '0 auto',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            minHeight: 'clamp(200px, 50vh, 500px)'
           }}>
             <div className="slide-content" style={{
-              padding: 'clamp(20px, 5vw, 40px)',
+              padding: 'clamp(16px, 4vw, 48px)',
               flex: 1,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
-              background: template.colors.background || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: template.colors.background || 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%)',
               color: template.colors.text || '#ffffff',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              minHeight: 'clamp(200px, 40vh, 400px)',
+              boxSizing: 'border-box',
+              width: '100%'
             }}>
               {/* Slide Background Pattern */}
               <div style={{
@@ -292,7 +203,7 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
                 right: '-50%',
                 width: '200%',
                 height: '200%',
-                background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)',
                 animation: 'float 6s ease-in-out infinite'
               }} />
               
@@ -301,81 +212,211 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
                 position: 'relative',
                 zIndex: 1,
                 width: '100%',
-                maxWidth: '800px'
+                maxWidth: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 'clamp(8px, 2vw, 16px)',
+                boxSizing: 'border-box'
               }}>
                 {presentation.slides[currentSlide]?.type === 'title' ? (
-                  <div>
+                  <div style={{ 
+                    width: '100%', 
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100%'
+                  }}>
                     <h1 className="slide-title" style={{
                       fontSize: 'clamp(24px, 6vw, 48px)',
                       fontWeight: '700',
                       marginBottom: 'clamp(16px, 4vw, 24px)',
                       textShadow: '0 4px 8px rgba(0,0,0,0.3)',
-                      lineHeight: '1.2'
+                      lineHeight: '1.1',
+                      wordWrap: 'break-word',
+                      maxWidth: '95%',
+                      color: template.colors.text || '#ffffff',
+                      fontFamily: template.layout.titleFont || 'inherit'
                     }}>
                       {presentation.slides[currentSlide].title}
                     </h1>
-                    <div className="slide-text" style={{
-                      fontSize: 'clamp(16px, 4vw, 24px)',
-                      lineHeight: '1.6',
-                      opacity: '0.9',
-                      maxWidth: '80%',
-                      margin: '0 auto'
-                    }}>
-                      {presentation.slides[currentSlide].content}
-                    </div>
+                    {presentation.slides[currentSlide].content && (
+                      <div className="slide-text" style={{
+                        fontSize: 'clamp(16px, 4vw, 24px)',
+                        lineHeight: '1.4',
+                        opacity: '0.9',
+                        maxWidth: '90%',
+                        margin: '0 auto',
+                        wordWrap: 'break-word',
+                        color: template.colors.text || '#ffffff',
+                        fontFamily: template.layout.contentFont || 'inherit',
+                        fontWeight: '400'
+                      }}>
+                        {presentation.slides[currentSlide].content}
+                      </div>
+                    )}
                   </div>
                 ) : presentation.slides[currentSlide]?.type === 'bullet' ? (
-                  <div>
+                  <div style={{ 
+                    width: '100%', 
+                    maxWidth: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
                     <h2 className="slide-title" style={{
                       fontSize: 'clamp(20px, 5vw, 32px)',
                       fontWeight: '600',
                       marginBottom: 'clamp(16px, 4vw, 24px)',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                      textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                      textAlign: 'center',
+                      wordWrap: 'break-word',
+                      color: template.colors.text || '#ffffff',
+                      fontFamily: template.layout.titleFont || 'inherit',
+                      maxWidth: '95%'
                     }}>
                       {presentation.slides[currentSlide].title}
                     </h2>
                     <div className="slide-text" style={{
                       fontSize: 'clamp(14px, 3vw, 18px)',
-                      lineHeight: '1.8',
+                      lineHeight: '1.6',
                       textAlign: 'left',
-                      maxWidth: '90%',
-                      margin: '0 auto'
+                      maxWidth: '95%',
+                      margin: '0 auto',
+                      wordWrap: 'break-word',
+                      color: template.colors.text || '#ffffff',
+                      fontFamily: template.layout.contentFont || 'inherit',
+                      width: '100%'
                     }}>
-                      {presentation.slides[currentSlide].content.split('\n').map((line, idx) => (
-                        <div key={idx} style={{ marginBottom: 'clamp(8px, 2vw, 12px)' }}>
-                          {line}
+                      {presentation.slides[currentSlide].content.split('\n').filter(line => line.trim()).map((line, idx) => (
+                        <div key={idx} style={{ 
+                          marginBottom: 'clamp(8px, 2vw, 12px)',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: 'clamp(8px, 2vw, 12px)',
+                          padding: 'clamp(4px, 1vw, 8px) 0'
+                        }}>
+                          <span style={{
+                            color: template.colors.accent || template.colors.secondary || '#ffffff',
+                            fontSize: 'clamp(12px, 2.5vw, 16px)',
+                            fontWeight: 'bold',
+                            marginTop: '2px',
+                            flexShrink: 0,
+                            minWidth: 'clamp(12px, 2.5vw, 16px)'
+                          }}>•</span>
+                          <span style={{ 
+                            flex: 1, 
+                            wordWrap: 'break-word',
+                            lineHeight: '1.5'
+                          }}>{line.trim()}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                 ) : presentation.slides[currentSlide]?.type === 'image' ? (
-                  <div>
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    padding: 'clamp(8px, 2vw, 16px)',
+                    boxSizing: 'border-box'
+                  }}>
                     <h2 className="slide-title" style={{
-                      fontSize: 'clamp(20px, 5vw, 32px)',
+                      fontSize: 'clamp(20px, 5vw, 36px)',
                       fontWeight: '600',
                       marginBottom: 'clamp(16px, 4vw, 24px)',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                      textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                      textAlign: 'center',
+                      fontFamily: template.layout.titleFont || 'inherit',
+                      color: template.colors.text || '#ffffff',
+                      maxWidth: '95%',
+                      wordWrap: 'break-word'
                     }}>
                       {presentation.slides[currentSlide].title}
                     </h2>
                     <div style={{
                       width: '100%',
-                      height: 'clamp(200px, 40vw, 400px)',
+                      height: 'clamp(250px, 45vh, 400px)',
+                      maxHeight: '65%',
                       background: 'rgba(255,255,255,0.1)',
                       borderRadius: '12px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      border: '2px dashed rgba(255,255,255,0.3)',
+                      border: '2px solid rgba(255,255,255,0.3)',
                       margin: '0 auto',
-                      maxWidth: '80%'
+                      maxWidth: '95%',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      backgroundImage: `url(https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
                     }}>
+                      {/* Image overlay for better text visibility */}
                       <div style={{
-                        textAlign: 'center',
-                        color: 'rgba(255,255,255,0.8)',
-                        fontSize: 'clamp(14px, 3vw, 16px)'
+                        position: 'absolute',
+                        bottom: '0',
+                        left: '0',
+                        right: '0',
+                        background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
+                        padding: 'clamp(12px, 3vw, 20px)',
+                        color: 'white',
+                        textAlign: 'center'
                       }}>
-                        📸 {presentation.slides[currentSlide].content}
+                        <div style={{
+                          fontSize: 'clamp(14px, 3vw, 18px)',
+                          fontWeight: '500',
+                          marginBottom: 'clamp(4px, 1vw, 8px)',
+                          textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+                          lineHeight: '1.4',
+                          wordWrap: 'break-word'
+                        }}>
+                          {presentation.slides[currentSlide].content}
+                        </div>
+                        <div style={{
+                          fontSize: 'clamp(10px, 2vw, 12px)',
+                          opacity: 0.8,
+                          textShadow: '0 1px 2px rgba(0,0,0,0.8)'
+                        }}>
+                          Professional image placeholder
+                        </div>
+                      </div>
+                      
+                      {/* Fallback content if image doesn't load */}
+                      <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        textAlign: 'center',
+                        color: 'rgba(255,255,255,0.9)',
+                        zIndex: 1,
+                        display: 'none'
+                      }}>
+                        <div style={{
+                          fontSize: '48px',
+                          marginBottom: '16px',
+                          opacity: 0.7
+                        }}>
+                          🖼️
+                        </div>
+                        <div style={{
+                          fontSize: '18px',
+                          fontWeight: '500'
+                        }}>
+                          {presentation.slides[currentSlide].content}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -609,21 +650,47 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
                     </div>
                   </div>
                 ) : (
-                  <div>
+                  <div style={{ 
+                    width: '100%', 
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center'
+                  }}>
                     <h2 className="slide-title" style={{
                       fontSize: 'clamp(20px, 5vw, 32px)',
                       fontWeight: '600',
                       marginBottom: 'clamp(16px, 4vw, 24px)',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                      textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                      color: template.colors.text || '#ffffff',
+                      fontFamily: template.layout.titleFont || 'inherit',
+                      maxWidth: '95%',
+                      wordWrap: 'break-word'
                     }}>
                       {presentation.slides[currentSlide].title}
                     </h2>
                     <div className="slide-text" style={{
-                      fontSize: 'clamp(14px, 3vw, 16px)',
-                      lineHeight: '1.8',
-                      textAlign: 'left'
+                      fontSize: 'clamp(14px, 3vw, 18px)',
+                      lineHeight: '1.6',
+                      textAlign: 'left',
+                      maxWidth: '95%',
+                      margin: '0 auto',
+                      color: template.colors.text || '#ffffff',
+                      fontFamily: template.layout.contentFont || 'inherit',
+                      wordWrap: 'break-word',
+                      width: '100%'
                     }}>
-                      {presentation.slides[currentSlide].content}
+                      {presentation.slides[currentSlide].content.split('\n').filter(line => line.trim()).map((line, idx) => (
+                        <div key={idx} style={{ 
+                          marginBottom: 'clamp(8px, 2vw, 12px)',
+                          padding: 'clamp(4px, 1vw, 8px) 0',
+                          lineHeight: '1.5'
+                        }}>
+                          {line.trim()}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -652,8 +719,12 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
           display: 'flex',
           gap: 'clamp(8px, 2vw, 12px)',
           overflowX: 'auto',
-          padding: 'clamp(8px, 2vw, 12px) 0',
-          scrollbarWidth: 'thin'
+          padding: 'clamp(8px, 2vw, 12px)',
+          scrollbarWidth: 'thin',
+          justifyContent: 'flex-start',
+          width: '100%',
+          maxWidth: '100%',
+          alignItems: 'center'
         }}>
           {presentation.slides.map((slide, index) => (
             <button
@@ -662,56 +733,64 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
               onClick={() => goToSlide(index)}
               style={{
                 flex: '0 0 auto',
-                width: 'clamp(80px, 15vw, 120px)',
-                height: 'clamp(60px, 10vw, 90px)',
-                background: index === currentSlide ? '#1f2937' : '#ffffff',
-                border: `2px solid ${index === currentSlide ? '#1f2937' : '#e5e7eb'}`,
-                borderRadius: '8px',
+                width: 'clamp(70px, 12vw, 100px)',
+                aspectRatio: '16/9',
+                background: index === currentSlide ? 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%)' : 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)',
+                border: `2px solid ${index === currentSlide ? '#ffffff' : '#444444'}`,
+                borderRadius: '6px',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: 'clamp(4px, 1vw, 8px)',
+                padding: 'clamp(3px, 0.8vw, 6px)',
                 overflow: 'hidden',
-                position: 'relative'
+                position: 'relative',
+                boxShadow: index === currentSlide ? '0 4px 12px rgba(0,0,0,0.15)' : '0 2px 4px rgba(0,0,0,0.1)',
+                minWidth: '50px',
+                maxWidth: '100px'
               }}
               onMouseEnter={(e) => {
                 const target = e.target as HTMLButtonElement;
                 if (index !== currentSlide) {
-                  target.style.borderColor = '#9ca3af';
+                  target.style.borderColor = '#ffffff';
                   target.style.transform = 'translateY(-2px)';
+                  target.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%)';
                 }
               }}
               onMouseLeave={(e) => {
                 const target = e.target as HTMLButtonElement;
                 if (index !== currentSlide) {
-                  target.style.borderColor = '#e5e7eb';
+                  target.style.borderColor = '#444444';
                   target.style.transform = 'translateY(0)';
+                  target.style.background = 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)';
                 }
               }}
             >
               <div style={{
-                fontSize: 'clamp(10px, 2vw, 12px)',
+                fontSize: 'clamp(8px, 1.5vw, 10px)',
                 fontWeight: '600',
-                color: index === currentSlide ? '#ffffff' : '#374151',
+                color: '#ffffff',
                 textAlign: 'center',
-                lineHeight: '1.2',
+                lineHeight: '1.1',
                 overflow: 'hidden',
                 display: '-webkit-box',
                 WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical'
+                WebkitBoxOrient: 'vertical',
+                textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+                padding: '2px'
               }}>
                 {slide.title}
               </div>
               <div style={{
                 position: 'absolute',
-                bottom: '2px',
-                right: '4px',
-                fontSize: 'clamp(8px, 1.5vw, 10px)',
-                color: index === currentSlide ? '#ffffff' : '#9ca3af',
-                fontWeight: '500'
+                bottom: '1px',
+                right: '2px',
+                fontSize: 'clamp(7px, 1.2vw, 9px)',
+                color: '#ffffff',
+                fontWeight: '500',
+                textShadow: '0 1px 2px rgba(0,0,0,0.7)'
               }}>
                 {index + 1}
               </div>
