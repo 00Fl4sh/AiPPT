@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Slide } from '../types';
 
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || '';
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyCI60hTjzqixu0M9M_pij-QH-XbHl3rAEk';
 
 console.log('=== API KEY DEBUG INFO ===');
 console.log('API_KEY loaded:', API_KEY ? 'YES' : 'NO');
@@ -15,6 +15,7 @@ console.log('Environment check:', {
   startsWithAIza: API_KEY.startsWith('AIza')
 });
 console.log('process.env.REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY);
+console.log('All environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
 console.log('=== END DEBUG INFO ===');
 
 if (!API_KEY) {
@@ -118,11 +119,18 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
 
     // Test if API key is working
     console.log('Testing API key...');
+    console.log('API_KEY being used:', API_KEY);
+    console.log('Model being used:', model);
     try {
       const testResult = await model.generateContent("Test");
       console.log('API key is working! Proceeding with real AI...');
     } catch (testError) {
       console.error('API key test failed:', testError);
+      console.error('Error details:', {
+        message: testError.message,
+        status: testError.status,
+        statusText: testError.statusText
+      });
       console.log('Falling back to mock response due to API error');
       
       // Fallback to intelligent mock response when API key is not configured
