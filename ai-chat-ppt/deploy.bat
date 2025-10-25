@@ -30,13 +30,33 @@ echo 📁 Build directory contents:
 dir build
 
 echo.
+echo 🔍 Checking critical files:
+if exist "vercel.json" (
+    echo ✅ vercel.json found
+) else (
+    echo ❌ vercel.json missing
+)
+
+if exist "build\index.html" (
+    echo ✅ index.html found
+) else (
+    echo ❌ index.html missing
+)
+
+if exist "build\static\js" (
+    echo ✅ JavaScript files found
+) else (
+    echo ❌ JavaScript files missing
+)
+
+echo.
 echo 🎯 Next steps:
-echo 1. Push your code to GitHub
+echo 1. Push your code to GitHub: git add . ^&^& git commit -m "Fix Vercel deployment" ^&^& git push
 echo 2. Connect your repository to Vercel
 echo 3. Set environment variables in Vercel dashboard:
 echo    - REACT_APP_GEMINI_API_KEY
 echo 4. Deploy!
 
 echo.
-echo 📖 For detailed instructions, see DEPLOYMENT.md
+echo 📖 For detailed instructions, see VERCEL_DEPLOYMENT_CHECKLIST.md
 pause

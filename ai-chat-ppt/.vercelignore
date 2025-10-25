@@ -4,9 +4,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Production build
-build/
-
 # Environment variables
 .env
 .env.local
@@ -38,3 +35,9 @@ coverage/
 
 # Backend (if not needed for frontend deployment)
 backend/
+
+# Development files
+src/
+public/
+*.md
+tsconfig.json
