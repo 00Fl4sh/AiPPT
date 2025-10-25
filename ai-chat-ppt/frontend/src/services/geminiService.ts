@@ -16,8 +16,6 @@ console.log('Environment check:', {
 });
 console.log('process.env.REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY);
 console.log('All environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
-console.log('GoogleGenerativeAI instance:', genAI);
-console.log('Model instance:', model);
 console.log('=== END DEBUG INFO ===');
 
 if (!API_KEY) {
@@ -26,6 +24,9 @@ if (!API_KEY) {
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+console.log('GoogleGenerativeAI instance:', genAI);
+console.log('Model instance:', model);
 
 export interface SlideGenerationResponse {
   title: string;
