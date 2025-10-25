@@ -5,6 +5,14 @@ const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || '';
 
 console.log('API_KEY loaded:', API_KEY ? 'YES' : 'NO');
 console.log('API_KEY value:', API_KEY);
+console.log('API_KEY length:', API_KEY.length);
+console.log('API_KEY starts with AIza:', API_KEY.startsWith('AIza'));
+console.log('Environment check:', {
+  hasKey: !!API_KEY,
+  keyLength: API_KEY.length,
+  isDefault: API_KEY === 'your_gemini_api_key_here',
+  startsWithAIza: API_KEY.startsWith('AIza')
+});
 
 if (!API_KEY) {
   console.warn('REACT_APP_GEMINI_API_KEY is not set. Please add your Gemini API key to .env file');
@@ -105,71 +113,56 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
       throw new Error(`CONVERSATION_DETECTED: ${randomResponse}`);
     }
 
-    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10) {
+    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10 || !API_KEY.startsWith('AIza')) {
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation (add your Gemini API key for real AI responses)');
-      console.log('API_KEY status:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here' });
+      console.log('API_KEY status:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here', startsWithAIza: API_KEY.startsWith('AIza') });
 
+      // Generate a generic presentation based on the user's prompt
+      const presentationTitle = prompt.length > 50 ? prompt.substring(0, 50) + "..." : prompt;
+      
       const slides = [
         {
           id: "slide-1",
-          title: "AI in Healthcare: Transforming Medical Practice",
-          content: "A comprehensive overview of how artificial intelligence is revolutionizing healthcare delivery, diagnosis, and patient care for medical professionals.",
+          title: presentationTitle,
+          content: `A comprehensive presentation about: ${prompt}`,
           type: "title" as const
         },
         {
           id: "slide-2",
-          title: "Key Applications of AI in Healthcare",
-          content: "• Medical Imaging and Diagnostics\n• Drug Discovery and Development\n• Personalized Treatment Plans\n• Predictive Analytics and Risk Assessment\n• Robotic Surgery and Automation\n• Electronic Health Records Management",
+          title: "Key Points",
+          content: "• Introduction to the topic\n• Main concepts and ideas\n• Important considerations\n• Key takeaways\n• Next steps",
           type: "bullet" as const
         },
         {
           id: "slide-3",
-          title: "AI in Healthcare: SWOT Analysis",
-          content: "Strengths: Improved diagnostic accuracy, faster drug discovery, enhanced patient outcomes\nWeaknesses: High implementation costs, data privacy concerns, regulatory challenges\nOpportunities: Telemedicine expansion, personalized medicine, preventive care\nThreats: Cybersecurity risks, job displacement concerns, ethical dilemmas",
-          type: "swot" as const
+          title: "Overview",
+          content: `This presentation covers the essential aspects of: ${prompt}. We'll explore the main concepts, benefits, challenges, and practical applications.`,
+          type: "content" as const
         },
         {
           id: "slide-4",
-          title: "AI Implementation Timeline",
-          content: "Phase 1: Data Collection and Analysis (Months 1-6)\nPhase 2: AI Model Development and Training (Months 7-12)\nPhase 3: Pilot Testing and Validation (Months 13-18)\nPhase 4: Full Deployment and Integration (Months 19-24)",
-          type: "timeline" as const
+          title: "Benefits and Opportunities",
+          content: "• Clear advantages and benefits\n• Growth opportunities\n• Potential improvements\n• Strategic advantages",
+          type: "bullet" as const
         },
         {
           id: "slide-5",
-          title: "AI in Healthcare: Benefits and Challenges",
-          content: "Pros:\n+ Improved diagnostic accuracy (up to 95%)\n+ Reduced medical errors and costs\n+ Faster drug discovery and development\n+ Enhanced patient care and outcomes\n\nCons:\n- High initial implementation costs\n- Data privacy and security concerns\n- Need for extensive staff training\n- Regulatory and compliance challenges",
-          type: "pros-cons" as const
+          title: "Implementation",
+          content: "Phase 1: Planning and Preparation\nPhase 2: Development and Testing\nPhase 3: Deployment and Integration\nPhase 4: Monitoring and Optimization",
+          type: "timeline" as const
         },
         {
           id: "slide-6",
-          title: "AI Healthcare Impact Metrics",
-          content: "Diagnostic Accuracy: 95% improvement\nCost Reduction: 30% average savings\nPatient Satisfaction: 4.8/5 rating\nROI: 300% within 2 years\nTreatment Time: 40% faster\nError Reduction: 85% fewer mistakes",
-          type: "metrics" as const
-        },
-        {
-          id: "slide-7",
-          title: "AI Technology in Medical Practice",
-          content: "Advanced machine learning algorithms for medical imaging analysis, natural language processing for clinical documentation, and predictive analytics for patient care optimization.",
-          type: "image" as const
-        },
-        {
-          id: "slide-8",
-          title: "AI Healthcare Implementation Framework",
-          content: "Clinical Applications: Diagnostic imaging, treatment planning, drug discovery\nTechnical Requirements: Data infrastructure, AI models, integration systems\nSuccess Factors: Staff training, change management, continuous monitoring",
-          type: "three-column" as const
-        },
-        {
-          id: "slide-9",
-          title: "Conclusion: The Future of AI in Healthcare",
-          content: "AI is transforming healthcare delivery, improving patient outcomes, and revolutionizing medical practice. As medical professionals, embracing AI technology will enhance our ability to provide better, faster, and more personalized care to our patients.\n\nThank you for your attention!",
+          title: "Conclusion",
+          content: `Thank you for your attention. This presentation has covered the key aspects of ${prompt}. For more information or questions, please feel free to reach out.`,
           type: "content" as const
         }
       ];
 
       // Generate slides one by one with progress updates
       const intelligentResponse: SlideGenerationResponse = {
-        title: "AI in Healthcare: Transforming Medical Practice",
+        title: presentationTitle,
         slides: []
       };
 
@@ -338,10 +331,10 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
       throw new Error(`CONVERSATION_DETECTED: ${randomResponse}`);
     }
 
-    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10) {
+    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10 || !API_KEY.startsWith('AIza')) {
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation for editing (add your Gemini API key for real AI responses)');
-      console.log('API_KEY status for editing:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here' });
+      console.log('API_KEY status for editing:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here', startsWithAIza: API_KEY.startsWith('AIza') });
 
       // Create improved slides based on edit prompt
       const improvedSlides = currentSlides.map((slide, index) => {
@@ -349,16 +342,15 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
         if (index === 0) {
           return {
             ...slide,
-            title: "AI in Healthcare: Transforming Medical Practice",
-            content: "A comprehensive overview of how artificial intelligence is revolutionizing healthcare delivery, diagnosis, and patient care for medical professionals. This enhanced presentation provides deeper insights into AI applications, benefits, and implementation strategies."
+            title: slide.title,
+            content: `${slide.content}\n\nEnhanced with additional insights and improvements based on your request: "${editPrompt}". This updated presentation provides more comprehensive coverage of the topic.`
           };
         }
-        // Enhance the second slide with more detailed applications
+        // Enhance the second slide with more detailed content
         if (index === 1) {
           return {
             ...slide,
-            title: "Advanced AI Applications in Healthcare",
-            content: "• Medical Imaging and Diagnostics (95% accuracy improvement)\n• Drug Discovery and Development (40% faster)\n• Personalized Treatment Plans (AI-driven precision medicine)\n• Predictive Analytics and Risk Assessment (Early disease detection)\n• Robotic Surgery and Automation (Minimally invasive procedures)\n• Electronic Health Records Management (Intelligent data processing)\n• Telemedicine and Remote Monitoring (AI-powered patient care)\n• Clinical Decision Support Systems (Evidence-based recommendations)"
+            content: `${slide.content}\n\nAdditional improvements:\n• Enhanced detail and specificity\n• Improved clarity and organization\n• Better visual structure\n• More comprehensive coverage\n\nBased on your request: "${editPrompt}"`
           };
         }
         // Add more specific content to SWOT analysis
