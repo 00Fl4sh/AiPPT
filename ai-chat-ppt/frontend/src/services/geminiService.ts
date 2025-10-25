@@ -16,6 +16,8 @@ console.log('Environment check:', {
 });
 console.log('process.env.REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY);
 console.log('All environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
+console.log('GoogleGenerativeAI instance:', genAI);
+console.log('Model instance:', model);
 console.log('=== END DEBUG INFO ===');
 
 if (!API_KEY) {
@@ -23,7 +25,7 @@ if (!API_KEY) {
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export interface SlideGenerationResponse {
   title: string;
@@ -121,9 +123,12 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
     console.log('Testing API key...');
     console.log('API_KEY being used:', API_KEY);
     console.log('Model being used:', model);
+    console.log('genAI instance:', genAI);
     try {
+      console.log('Making test API call...');
       const testResult = await model.generateContent("Test");
       console.log('API key is working! Proceeding with real AI...');
+      console.log('Test response:', testResult.response.text());
     } catch (testError) {
       console.error('API key test failed:', testError);
       console.error('Error details:', {
