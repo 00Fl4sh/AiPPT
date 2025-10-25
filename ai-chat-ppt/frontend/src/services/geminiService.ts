@@ -3,6 +3,7 @@ import { Slide } from '../types';
 
 const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || '';
 
+console.log('=== API KEY DEBUG INFO ===');
 console.log('API_KEY loaded:', API_KEY ? 'YES' : 'NO');
 console.log('API_KEY value:', API_KEY);
 console.log('API_KEY length:', API_KEY.length);
@@ -13,6 +14,8 @@ console.log('Environment check:', {
   isDefault: API_KEY === 'your_gemini_api_key_here',
   startsWithAIza: API_KEY.startsWith('AIza')
 });
+console.log('process.env.REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY);
+console.log('=== END DEBUG INFO ===');
 
 if (!API_KEY) {
   console.warn('REACT_APP_GEMINI_API_KEY is not set. Please add your Gemini API key to .env file');
@@ -113,7 +116,15 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
       throw new Error(`CONVERSATION_DETECTED: ${randomResponse}`);
     }
 
-    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10 || !API_KEY.startsWith('AIza')) {
+    // Test if API key is working
+    console.log('Testing API key...');
+    try {
+      const testResult = await model.generateContent("Test");
+      console.log('API key is working! Proceeding with real AI...');
+    } catch (testError) {
+      console.error('API key test failed:', testError);
+      console.log('Falling back to mock response due to API error');
+      
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation (add your Gemini API key for real AI responses)');
       console.log('API_KEY status:', { hasKey: !!API_KEY, keyLength: API_KEY.length, isDefault: API_KEY === 'your_gemini_api_key_here', startsWithAIza: API_KEY.startsWith('AIza') });
