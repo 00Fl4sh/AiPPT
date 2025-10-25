@@ -1,8 +1,29 @@
 {
   "version": 2,
-  "buildCommand": "cd client && npm install --include=dev && npm run build",
-  "outputDirectory": "client/build",
-  "installCommand": "cd client && npm install --include=dev",
-  "devCommand": "cd client && npm start",
-  "framework": "create-react-app"
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "backend-clean/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "backend-clean/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/build/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
