@@ -17,7 +17,7 @@ console.log('Environment check:', {
 });
 console.log('process.env.REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY);
 console.log('All environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
-console.log('Working directory:', process.cwd());
+console.log('Browser environment detected');
 console.log('=== END DEBUG INFO ===');
 
 if (!API_KEY) {
