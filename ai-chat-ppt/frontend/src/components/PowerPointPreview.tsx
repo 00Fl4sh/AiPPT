@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Download, Eye, EyeOff } from 'lucide-react';
+import { Download, Eye, EyeOff } from 'lucide-react';
 import { Presentation, Slide } from '../types';
 import { PRESENTATION_TEMPLATES } from '../types/templates';
 import './PowerPointPreview.css';
@@ -18,13 +18,14 @@ const PowerPointPreview: React.FC<PowerPointPreviewProps> = ({ presentation, onD
   // Get the selected template
   const template = PRESENTATION_TEMPLATES.find(t => t.id === selectedTemplate) || PRESENTATION_TEMPLATES[0];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % presentation.slides.length);
-  };
+  // Navigation functions (currently unused but available for future use)
+  // const nextSlide = () => {
+  //   setCurrentSlide((prev) => (prev + 1) % presentation.slides.length);
+  // };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + presentation.slides.length) % presentation.slides.length);
-  };
+  // const prevSlide = () => {
+  //   setCurrentSlide((prev) => (prev - 1 + presentation.slides.length) % presentation.slides.length);
+  // };
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
