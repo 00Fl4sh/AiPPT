@@ -135,10 +135,31 @@ cd frontend && npm run build
 
 ## 🔧 Environment Variables
 
-### Frontend (.env)
-```env
-REACT_APP_GEMINI_API_KEY=your_gemini_api_key_here
+### Required Setup:
+
+1. **Create `.env` file** in the `frontend` directory:
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Create .env file (Windows)
+echo. > .env
+
+# Create .env file (Mac/Linux)
+touch .env
 ```
+
+2. **Add your Gemini API key** to the `.env` file:
+```env
+REACT_APP_GEMINI_API_KEY=your_actual_gemini_api_key_here
+```
+
+3. **Get your API key** from [Google AI Studio](https://makersuite.google.com/app/apikey)
+
+### Security Note:
+- ✅ Never commit the `.env` file to version control
+- ✅ The `.env` file is already included in `.gitignore`
+- ✅ Use `.env.example` as a template for other developers
 
 ## 🛠️ Development Features
 

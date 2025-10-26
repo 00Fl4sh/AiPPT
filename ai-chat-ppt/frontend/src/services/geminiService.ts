@@ -1,14 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Slide } from '../types';
 
-const API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyBbDR2S3TiVDnRiO8yRaxAaIFMOEPTYO0c';
+const API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
 
-console.log('=== API KEY DEBUG ===');
-console.log('API_KEY loaded:', API_KEY ? 'YES' : 'NO');
-console.log('API_KEY value:', API_KEY);
-console.log('API_KEY length:', API_KEY?.length || 0);
-console.log('Environment variables:', Object.keys(process.env).filter(key => key.includes('GEMINI')));
-console.log('=== END DEBUG ===');
 
 if (!API_KEY) {
   console.warn('REACT_APP_GEMINI_API_KEY is not set. Please add your Gemini API key to .env file');
@@ -110,7 +104,7 @@ export const generateSlides = async (prompt: string, onProgress?: (slide: any, i
     }
 
     // Check if API key is configured
-    if (false) { // Temporarily disabled to force API usage
+    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10) {
       console.log('Using fallback AI simulation (add your Gemini API key for real AI responses)');
 
       // Generate a generic presentation based on the user's prompt
@@ -325,7 +319,7 @@ export const editSlides = async (currentSlides: Slide[], editPrompt: string, onP
       throw new Error(`CONVERSATION_DETECTED: ${randomResponse}`);
     }
 
-    if (false) { // Temporarily disabled to force API usage
+    if (!API_KEY || API_KEY === 'your_gemini_api_key_here' || API_KEY.length < 10) {
       // Fallback to intelligent mock response when API key is not configured
       console.log('Using fallback AI simulation for editing (add your Gemini API key for real AI responses)');
 
